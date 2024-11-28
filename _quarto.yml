@@ -40,8 +40,7 @@ website:
       - href: https://github.com/watanabe3tipapa/zakki6
         text: Source Code
         icon: github
-footer:
-  left: "© 2024 watanabe3tipapa"
+
 format:
   html:
     theme: spacelab
