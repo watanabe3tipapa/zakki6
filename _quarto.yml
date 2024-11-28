@@ -1,0 +1,68 @@
+project:
+  type: website
+  output-dir: _docs
+  render:
+    - "*.qmd"
+    - "!drafts/"
+
+website:
+  title: "zakki6"
+  navbar:
+    aria-label: Main navigation
+    background: dark
+    search: true
+    left:
+      - href: index.qmd
+        text: Home
+      - text: Contents（qmd）
+        menu:
+          - href: note01.qmd
+            text: note01 - ogp
+          - href: note02.qmd
+            text: note02 - 
+          - href: note03.qmd
+            text: note03 - 
+          - href: note04.qmd
+            text: note04 -  
+          - href: note05.qmd
+            text: note05 - 
+          - href: note06.qmd
+            text: note06 - 
+          - href: note07.qmd
+            text: note07 - 
+          - href: note08.qmd
+            text: note08 - 
+          - href: note09.qmd
+            text: note09 - 
+          - href: note10.qmd
+            text: note10 - 
+    right:
+      - href: https://github.com/watanabe3tipapa/zakki6
+        text: Source Code
+        icon: github
+footer:
+  left: "© 2024 watanabe3tipapa"
+format:
+  html:
+    theme: spacelab
+    css: styles.css
+    toc: true
+    code-fold: true
+    code-tools: true
+  pdf:
+    documentclass: article
+    margin-left: 30mm
+    margin-right: 30mm
+execute:
+  echo: true
+  warning: false
+  error: false
+  cache: true
+
+freeze: auto
+
+resources:
+  - CNAME
+  - .nojekyll
+
+editor: visual

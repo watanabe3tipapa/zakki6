@@ -1,0 +1,47 @@
+# OGP
+
+> ## Without forgetting
+
+### 🖼️ OGP images （4 GitHub Repository）
+
+``` bash
+https://opengraph.githubassets.com/1/<owner>/<repo>
+```
+
+**example** [https://opengraph.githubassets.com/1/watanabe3tipapa/sphinx-ce](https://opengraph.githubassets.com/1/)
+
+![](https://opengraph.githubassets.com/1/) 1200×630 pix
+
+------------------------------------------------------------------------
+
+###　🏷️ OGP Tag （qmd -\> HTML）
+
+**QuartoでのOGPタグの追加手順**
+
+-   
+
+    1.  **YAMLメタデータの設定**: Quartoドキュメントの最初にYAMLメタデータを追加します。ここでOGPタグを設定します。
+
+    ``` yaml
+    ---
+    title: "ページタイトル"
+    description: "ページの説明文"
+    format:
+      html:
+        meta:
+          og:title: "ページタイトル"
+          og:description: "ページの説明文"
+          og:image: "画像のURL"
+          og:url: "ページのURL"
+    ---
+    ```
+
+-   
+
+    2.  **HTML出力の確認**: QuartoドキュメントをHTML形式でレンダリングすると、指定したOGPタグが`<head>`セクションに自動的に追加されます。
+
+-   
+
+    3.  **プレビューの確認**: 生成されたHTMLファイルをソーシャルメディアでシェアして、OGPタグが正しく機能しているかを確認します。
+
+------------------------------------------------------------------------

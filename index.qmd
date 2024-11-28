@@ -1,0 +1,17 @@
+---
+title: "zakki6"
+subtitle: "雑記録"
+author: "watanabe3tipapa"
+date: last-modified
+format:
+  html:
+    meta:
+      og:title: "zakki6"
+      og:description: "わたしの雑記録"
+      og:image: "./assets/ogp_base.jpg"
+      og:url: "https://watanabe3tipapa.github.io/zakki6"
+
+editor: visual
+---
+
+# Welcome to My Zakki6
