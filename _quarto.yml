@@ -16,6 +16,8 @@ website:
         text: Home
       - text: Contents（qmd）
         menu:
+          - href: books/BOOK_2024.qmd
+            text: Books - 2024年版目録
           - href: notes/note01.qmd
             text: note01 - OGP
     right:

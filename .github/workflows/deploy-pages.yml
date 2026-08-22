@@ -35,6 +35,13 @@ jobs:
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             echo "Manual execution requested."
             echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+            {
+              echo "## Deployment decision"
+              echo
+              echo "- Trigger: manual workflow dispatch"
+              echo "- Decision: deploy"
+              echo "- Reason: manual execution bypasses file-change selection"
+            } >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
 
@@ -56,12 +63,25 @@ jobs:
           site_change_pattern='^(_quarto\.yml|CNAME|\.nojekyll|styles\.css|[^/]+\.qmd|assets/|books/|.*/[^/]+\.(qmd|md|png|jpe?g|gif|svg|webp|css|js|json|bib|csl|ya?ml)|\.github/workflows/deploy-pages\.yml)$'
 
           if grep -Eq "$site_change_pattern" "$changed_files"; then
-            echo "Site-affecting change detected."
+            decision="deploy"
+            reason="site-affecting change detected"
             echo "should_deploy=true" >> "$GITHUB_OUTPUT"
           else
-            echo "No site-affecting changes detected; deployment will be skipped."
+            decision="skip"
+            reason="no site-affecting change detected"
             echo "should_deploy=false" >> "$GITHUB_OUTPUT"
           fi
+
+          {
+            echo "## Deployment decision"
+            echo
+            echo "- Trigger: push to main"
+            echo "- Decision: $decision"
+            echo "- Reason: $reason"
+            echo
+            echo "### Changed files"
+            sed 's/^/- `/' "$changed_files" | sed 's/$/`/'
+          } >> "$GITHUB_STEP_SUMMARY"
 
   validate-and-build:
     needs: classify-changes
@@ -88,7 +108,7 @@ jobs:
           set -euo pipefail
           quarto render --to html 2>&1 | tee quarto-render.log
           test -s _docs/index.html
-          if grep -Eq '^(WARN|ERROR):' quarto-render.log; then
+          if grep -Eq '^(WARN(ING)?|ERROR)(:|[[:space:]])' quarto-render.log; then
             echo "Quarto emitted diagnostics that must be resolved before deployment."
             exit 1
           fi
