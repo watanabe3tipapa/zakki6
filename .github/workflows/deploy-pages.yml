@@ -5,6 +5,9 @@ on:
     branches:
       - main
   workflow_dispatch:
+  schedule:
+    # 23:00 UTC = 08:00 JST on the following day.
+    - cron: "0 23 * * *"
 
 permissions:
   contents: read
@@ -31,6 +34,19 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
+          if [[ "${{ github.event_name }}" == "schedule" ]]; then
+            echo "Scheduled daily feed refresh requested."
+            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+            {
+              echo "## Deployment decision"
+              echo
+              echo "- Trigger: daily scheduled feed refresh (08:00 JST)"
+              echo "- Decision: check official feeds before publishing"
+              echo "- Reason: only changed feed content will be deployed"
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
 
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             echo "Manual execution requested."
@@ -87,6 +103,8 @@ jobs:
     needs: classify-changes
     if: needs.classify-changes.outputs.should_deploy == 'true'
     runs-on: ubuntu-latest
+    outputs:
+      should_publish: ${{ steps.feed-change.outputs.changed }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -103,19 +121,26 @@ jobs:
         run: git diff --check "${{ github.event.before }}" "${{ github.sha }}"
 
       - name: Refresh official external feeds
+        id: feed-change
         shell: bash
         run: |
           set -euo pipefail
           python3 scripts/build_external_feeds.py
+          changed="$(sed -n 's/^changed=//p' "$GITHUB_OUTPUT" | tail -n 1)"
+          if [[ "${{ github.event_name }}" != "schedule" ]]; then
+            changed=true
+          fi
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
           {
             echo "## External feed refresh"
             echo
             echo "- TREND: MdN Design Interactive official RSS"
             echo "- ANTENNA: Digital Agency official RSS"
-            echo "- Status: retrieved successfully before rendering"
+            echo "- Feed content changed: $changed"
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Render and validate Quarto site
+        if: steps.feed-change.outputs.changed == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -127,9 +152,11 @@ jobs:
           fi
 
       - name: Configure GitHub Pages
+        if: steps.feed-change.outputs.changed == 'true'
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
+        if: steps.feed-change.outputs.changed == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./_docs
@@ -138,7 +165,7 @@ jobs:
     needs:
       - classify-changes
       - validate-and-build
-    if: needs.classify-changes.outputs.should_deploy == 'true' && needs.validate-and-build.result == 'success'
+    if: needs.classify-changes.outputs.should_deploy == 'true' && needs.validate-and-build.result == 'success' && needs.validate-and-build.outputs.should_publish == 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

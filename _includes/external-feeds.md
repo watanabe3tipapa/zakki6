@@ -50,7 +50,7 @@ MdNの公式フィードから、デザインとクリエイティブの最新�
 :::
 
 ::: {.feed-footer}
-[2026.08.22 19:35 JST 取得]{.feed-updated}
+[2026.08.22 19:42 JST 取得]{.feed-updated}
 
 [すべて見る ↗](https://www.mdn.co.jp/news){.feed-source target="_blank" rel="noreferrer"}
 :::
@@ -108,7 +108,7 @@ MdNの公式フィードから、デザインとクリエイティブの最新�
 :::
 
 ::: {.feed-footer}
-[2026.08.22 19:35 JST 取得]{.feed-updated}
+[2026.08.22 19:42 JST 取得]{.feed-updated}
 
 [すべて見る ↗](https://www.digital.go.jp/news){.feed-source target="_blank" rel="noreferrer"}
 :::
