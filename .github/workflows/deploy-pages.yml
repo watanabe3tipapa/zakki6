@@ -1,0 +1,114 @@
+name: Validate and deploy Quarto site
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  classify-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      should_deploy: ${{ steps.classify.outputs.should_deploy }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Classify changed files
+        id: classify
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "Manual execution requested."
+            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          base="${{ github.event.before }}"
+          head="${{ github.sha }}"
+          changed_files="$(mktemp)"
+
+          if [[ "$base" == "0000000000000000000000000000000000000000" ]]; then
+            git diff-tree --no-commit-id --name-only -r "$head" > "$changed_files"
+          else
+            git diff --name-only "$base" "$head" > "$changed_files"
+          fi
+
+          echo "Changed files:"
+          cat "$changed_files"
+
+          # Site source and configuration files are eligible for deployment.
+          # Generated files such as .html, .aux, .log and .tex are intentionally excluded.
+          site_change_pattern='^(_quarto\.yml|CNAME|\.nojekyll|styles\.css|[^/]+\.qmd|assets/|books/|.*/[^/]+\.(qmd|md|png|jpe?g|gif|svg|webp|css|js|json|bib|csl|ya?ml)|\.github/workflows/deploy-pages\.yml)$'
+
+          if grep -Eq "$site_change_pattern" "$changed_files"; then
+            echo "Site-affecting change detected."
+            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No site-affecting changes detected; deployment will be skipped."
+            echo "should_deploy=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  validate-and-build:
+    needs: classify-changes
+    if: needs.classify-changes.outputs.should_deploy == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: "1.10.18"
+
+      - name: Check source changes for whitespace errors
+        if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
+        run: git diff --check "${{ github.event.before }}" "${{ github.sha }}"
+
+      - name: Render and validate Quarto site
+        shell: bash
+        run: |
+          set -euo pipefail
+          quarto render --to html 2>&1 | tee quarto-render.log
+          test -s _docs/index.html
+          if grep -Eq '^(WARN|ERROR):' quarto-render.log; then
+            echo "Quarto emitted diagnostics that must be resolved before deployment."
+            exit 1
+          fi
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_docs
+
+  deploy:
+    needs:
+      - classify-changes
+      - validate-and-build
+    if: needs.classify-changes.outputs.should_deploy == 'true' && needs.validate-and-build.result == 'success'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

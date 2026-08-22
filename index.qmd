@@ -7,11 +7,56 @@ format:
   html:
     meta:
       og:title: "zakki6"
-      og:description: "わたしの雑記録"
+      og:description: "雑記録の入口。メモと目録へのリンクをまとめています。"
       og:image: "./assets/ogp_base.jpg"
       og:url: "https://watanabe3tipapa.github.io/zakki6"
-
 editor: visual
 ---
 
-# Welcome to My Zakki6
+::: {.hero-banner}
+# zakki6
+
+日々のメモ、参照用のノート、そして長めの目録を置いている雑記録です。下のカードから気になるファイルを開いてください。
+
+[コンテンツを見る](#contents){.hero-link}
+:::
+
+## Contents {#contents}
+
+::: {.link-grid}
+
+::: {.content-card}
+### OGP メモ
+
+`notes/note01.qmd`
+
+QuartoでOGPタグを設定する方法と、GitHubリポジトリのOGP画像に関する短いメモです。
+
+[ページを開く →](notes/note01.qmd){.card-link}
+:::
+
+::: {.content-card}
+### 機械学習・データ分析の書籍目録
+
+`books/BOOK_2024.md`
+
+機械学習・データ分析に関する105冊の紹介をまとめた、長めのMarkdown目録です。GitHub上の元ファイルを開きます。
+
+[ファイルを開く →](https://github.com/watanabe3tipapa/zakki6/blob/main/books/BOOK_2024.md){.card-link target="_blank"}
+:::
+
+::: {.content-card}
+### リポジトリのソース
+
+`watanabe3tipapa/zakki6`
+
+このサイトのソース一式です。ファイル一覧、更新履歴、各種設定をGitHubで確認できます。
+
+[GitHubで開く →](https://github.com/watanabe3tipapa/zakki6){.card-link target="_blank"}
+:::
+
+:::
+
+## Notes
+
+> このサイトは、`main` にPushされた変更を確認したうえで、GitHub上でレンダリングして公開する構成を目指しています。コンテンツを追加したら、この一覧にもリンクと短い説明を足してください。
