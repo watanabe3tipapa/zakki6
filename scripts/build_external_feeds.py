@@ -20,7 +20,7 @@ from zoneinfo import ZoneInfo
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT_PATH = ROOT / "_includes" / "external-feeds.html"
+OUTPUT_PATH = ROOT / "_includes" / "external-feeds.md"
 JST = ZoneInfo("Asia/Tokyo")
 USER_AGENT = "zakki6-external-feed-builder/1.0 (+https://github.com/watanabe3tipapa/zakki6)"
 
@@ -34,7 +34,7 @@ class FeedConfig:
     feed_url: str
     allowed_host: str
     description: str
-    item_limit: int = 6
+    item_limit: int = 3
 
 
 @dataclass(frozen=True)
@@ -124,16 +124,17 @@ def render_items(items: Iterable[FeedItem]) -> str:
     rows = []
     for index, item in enumerate(items, start=1):
         rows.append(
-            """      <li class=\"feed-item\">
-        <a href=\"{url}\" target=\"_blank\" rel=\"noreferrer\">
-          <span class=\"feed-index\">{index:02d}</span>
-          <span class=\"feed-copy\">
-            <span class=\"feed-meta\">{category} · {published}</span>
-            <span class=\"feed-title\">{title}</span>
-          </span>
-          <span class=\"feed-arrow\" aria-hidden=\"true\">↗</span>
-        </a>
-      </li>""".format(
+            """::: {{.feed-item}}
+[{index:02d}]{{.feed-index}}
+
+::: {{.feed-copy}}
+[{category} · {published}]{{.feed-meta}}
+
+[{title}]({url}){{.feed-title target=\"_blank\" rel=\"noreferrer\"}}
+:::
+
+[↗]({url}){{.feed-arrow target=\"_blank\" rel=\"noreferrer\"}}
+:::""".format(
                 index=index,
                 url=escape(item.url, quote=True),
                 category=escape(item.category),
@@ -141,24 +142,33 @@ def render_items(items: Iterable[FeedItem]) -> str:
                 title=escape(item.title),
             )
         )
-    return "\n".join(rows)
+    return "\n\n".join(rows)
 
 
 def render_section(config: FeedConfig, items: list[FeedItem], retrieved_at: str) -> str:
-    return """<section class=\"external-feed\" id=\"{section_id}\" aria-labelledby=\"{section_id}-heading\">
-  <div class=\"feed-heading\">
-    <div>
-      <p class=\"section-kicker\">{label} / LIVE FEED</p>
-      <h2 id=\"{section_id}-heading\">{label}</h2>
-    </div>
-    <a class=\"feed-source\" href=\"{source_url}\" target=\"_blank\" rel=\"noreferrer\">{source_name} ↗</a>
-  </div>
-  <p class=\"feed-intro\">{description}</p>
-  <ol class=\"feed-list\">
+    return """::: {{.external-feed .content-card .feed-card #{section_id}}}
+[LIVE / 03]{{.feed-card-index}}
+
+::: {{.card-topline}}
+[{label}]{{.card-role}}
+
+[{source_name}]{{.card-kind}}
+:::
+
+### {label} {{#{section_id}-heading}}
+
+{description}
+
+::: {{.feed-list}}
 {items}
-  </ol>
-  <p class=\"feed-updated\">公式RSSから取得 · {retrieved_at} JST · 見出し・公開日・カテゴリ・リンクのみ掲載</p>
-</section>""".format(
+:::
+
+::: {{.feed-footer}}
+[{retrieved_at} JST 取得]{{.feed-updated}}
+
+[すべて見る ↗]({source_url}){{.feed-source target=\"_blank\" rel=\"noreferrer\"}}
+:::
+:::""".format(
         section_id=config.section_id,
         label=config.label,
         source_name=escape(config.source_name),
