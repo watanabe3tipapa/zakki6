@@ -9,6 +9,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
+import os
+import re
 from email.utils import parsedate_to_datetime
 from html import escape
 from pathlib import Path
@@ -23,6 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_PATH = ROOT / "_includes" / "external-feeds.md"
 JST = ZoneInfo("Asia/Tokyo")
 USER_AGENT = "zakki6-external-feed-builder/1.0 (+https://github.com/watanabe3tipapa/zakki6)"
+FEED_TIMESTAMP = re.compile(r"\[\d{4}\.\d{2}\.\d{2} \d{2}:\d{2} JST 取得\]\{\.feed-updated\}")
 
 
 @dataclass(frozen=True)
@@ -179,12 +182,32 @@ def render_section(config: FeedConfig, items: list[FeedItem], retrieved_at: str)
     )
 
 
+def stable_content(markdown: str) -> str:
+    """Ignore the retrieval timestamp when deciding whether a publication is needed."""
+    return FEED_TIMESTAMP.sub("[retrieved timestamp]{.feed-updated}", markdown)
+
+
+def report_change(changed: bool) -> None:
+    github_output = os.environ.get("GITHUB_OUTPUT")
+    if github_output:
+        with Path(github_output).open("a", encoding="utf-8") as output:
+            output.write(f"changed={'true' if changed else 'false'}\n")
+
+
 def main() -> None:
     retrieved_at = datetime.now(JST).strftime("%Y.%m.%d %H:%M")
     sections = [render_section(config, read_items(config), retrieved_at) for config in FEEDS]
+    generated = "\n\n".join(sections) + "\n"
+    existing = OUTPUT_PATH.read_text(encoding="utf-8") if OUTPUT_PATH.exists() else ""
+    changed = stable_content(generated) != stable_content(existing)
+
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_PATH.write_text("\n\n".join(sections) + "\n", encoding="utf-8")
-    print(f"Wrote {OUTPUT_PATH.relative_to(ROOT)} from {len(FEEDS)} official RSS feeds.")
+    if changed:
+        OUTPUT_PATH.write_text(generated, encoding="utf-8")
+
+    report_change(changed)
+    state = "updated" if changed else "unchanged"
+    print(f"Official feeds {state}: {len(FEEDS)} sources, changed={str(changed).lower()}.")
 
 
 if __name__ == "__main__":
