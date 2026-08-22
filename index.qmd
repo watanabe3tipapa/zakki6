@@ -125,9 +125,9 @@ QuartoでOGPタグを設定する方法と、GitHubリポジトリのOGP画像�
 [GitHubで開く →](https://github.com/watanabe3tipapa/zakki6){.card-link target="_blank"}
 :::
 
-:::
+{{< include _includes/external-feeds.md >}}
 
-{{< include _includes/external-feeds.html >}}
+:::
 
 ::: {.editorial-note}
 [EDITORIAL NOTE]{.section-kicker}

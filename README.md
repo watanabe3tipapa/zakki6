@@ -15,8 +15,8 @@
 | `index.qmd` | 編集的なLPです。書籍目録、OGPメモ、更新フロー、TREND、ANTENNA、ソースへの導線を提供します。 | [公開ページ](https://watanabe3tipapa.github.io/zakki6/) |
 | `books/BOOK_2024.qmd` | 機械学習・データ分析のための105冊をまとめた、サイト内で読める書籍目録です。 | [公開ページ](https://watanabe3tipapa.github.io/zakki6/books/BOOK_2024.html) |
 | `notes/note01.qmd` | QuartoにおけるOGPタグ設定とGitHubリポジトリのOGP画像に関するメモです。 | [公開ページ](https://watanabe3tipapa.github.io/zakki6/notes/note01.html) |
-| `scripts/build_external_feeds.py` | MdNとデジタル庁の公式RSSを取得し、TREND・ANTENNA表示用HTMLを安全に生成します。 | [取得スクリプト](scripts/build_external_feeds.py) |
-| `_includes/external-feeds.html` | 最新の公式フィードから生成された、LP埋め込み用の表示データです。 | [生成ファイル](_includes/external-feeds.html) |
+| `scripts/build_external_feeds.py` | MdNとデジタル庁の公式RSSを取得し、TREND・ANTENNAのカード用Markdownを安全に生成します。 | [取得スクリプト](scripts/build_external_feeds.py) |
+| `_includes/external-feeds.md` | 最新の公式フィードから生成された、LPのカードグリッドに埋め込む表示データです。 | [生成ファイル](_includes/external-feeds.md) |
 | `assets/` | トップページとOGPで利用する画像アセットです。 | [ディレクトリ](assets/) |
 | `_quarto.yml` | ナビゲーション、HTML出力、アセットの扱いを定義するQuarto設定です。 | [設定ファイル](_quarto.yml) |
 | `.github/workflows/deploy-pages.yml` | 変更の選別、公式フィード取得、検査、レンダリング、GitHub Pages公開を行うワークフローです。 | [ワークフロー](.github/workflows/deploy-pages.yml) |
@@ -49,7 +49,7 @@ quarto render --to html
 | --- | --- | --- |
 | 変更の選別 | Push前後のファイル一覧を比較します。Quarto設定、`.qmd`、`books/`、`_includes/`、スタイル、取得スクリプト、ワークフローなどのサイト影響ファイルだけを対象にします。 | 生成済みHTMLや補助生成物のみの変更はデプロイをスキップします。 |
 | 差分検査 | 対象Pushの完全なコミット履歴を取得し、空白エラーを検査します。 | 問題があればビルド前に停止します。 |
-| 公式フィード更新 | MdNとデジタル庁の公式RSSから最新6件ずつを取得し、TREND・ANTENNA用の表示データを生成します。 | 取得に失敗した場合は、古い情報を公開せずビルドを停止します。 |
+| 公式フィード更新 | MdNとデジタル庁の公式RSSから最新3件ずつを取得し、TREND・ANTENNAのカード用Markdownを生成します。 | 取得に失敗した場合は、古い情報を公開せずビルドを停止します。 |
 | Quarto検証 | GitHub上でHTMLをレンダリングし、トップページの生成と診断メッセージを確認します。 | 警告・エラーがあれば公開しません。 |
 | Pages公開 | 検査に成功した `_docs/` のみをGitHub Pagesへ配信します。 | 公開サイトが更新されます。 |
 
@@ -57,7 +57,7 @@ quarto render --to html
 
 ## 公式フィード
 
-[TREND](https://www.mdn.co.jp/news) はMdNの公式RSS、[ANTENNA](https://www.digital.go.jp/news) はデジタル庁の公式RSSを取得元とします。どちらも、**見出し、公開日、カテゴリ、原典へのリンク、取得日時**のみを掲載します。記事本文、画像、添付資料は転載しません。フィードは`main`へのPushまたは手動の公開実行のたびに取得されるため、サイト内の表示はその公開時点の情報です。
+[TREND](https://www.mdn.co.jp/news) はMdNの公式RSS、[ANTENNA](https://www.digital.go.jp/news) はデジタル庁の公式RSSを取得元とします。どちらも、**カード内に最新3件**の見出し、公開日、カテゴリ、原典へのリンク、取得日時だけを掲載します。記事本文、画像、添付資料は転載しません。フィードは`main`へのPushまたは手動の公開実行のたびに取得されるため、サイト内の表示はその公開時点の情報です。
 
 ## コンテンツを追加する場合
 
