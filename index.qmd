@@ -5,27 +5,63 @@ author: "watanabe3tipapa"
 date: last-modified
 format:
   html:
+    body-classes: editorial-home
+    toc: false
     meta:
       og:title: "zakki6"
-      og:description: "雑記録の入口。メモと目録へのリンクをまとめています。"
+      og:description: "メモ、書籍目録、更新フローを編集的な導線で読む雑記録。"
       og:image: "./assets/ogp_base.jpg"
       og:url: "https://watanabe3tipapa.github.io/zakki6"
 editor: visual
 ---
 
-::: {.hero-banner}
-# zakki6
+::: {.editorial-hero}
 
-日々のメモ、参照用のノート、そして長めの目録を置いている雑記録です。下のカードから、読みたいページや更新の仕組みを開いてください。
+::: {.issue-line}
+[ZAKKI6 / ISSUE 01]{.issue-name}
 
-[コンテンツを見る](#contents){.hero-link}
+[NOTES · BOOKS · FEEDS · METHODS]{.issue-scope}
 :::
 
-## Contents {#contents}
+# 読むための、雑記録。
+
+日々のメモ、参照用のノート、そして長めの書籍目録を、目的から選べる入口として編み直しました。気になるテーマを一つ選んで、そのまま本文へ進んでください。
+
+::: {.hero-actions}
+[読むものを選ぶ](#contents){.hero-link}
+
+[書籍目録を開く](books/BOOK_2024.qmd){.hero-link .hero-link-secondary}
+
+[最新フィードを見る](#trend){.hero-link .hero-link-secondary}
+:::
+
+::: {.hero-footer}
+[4 entries · 2 live feeds]{.hero-stat}
+
+[Feeds refresh on publish]{.hero-stat}
+:::
+
+:::
+
+## Select an entry {#contents}
+
+::: {.section-heading}
+[CONTENTS / 04]{.section-kicker}
+
+カードを選ぶと、各ページの本文へ移動します。最初に読むなら、編集部のおすすめとして書籍目録からどうぞ。
+:::
 
 ::: {.link-grid}
 
 ::: {.content-card .featured-card}
+[01]{.card-index}
+
+::: {.card-topline}
+[FEATURE]{.card-role}
+
+[LONG READ]{.card-kind}
+:::
+
 ### 書籍目録 · 105冊
 
 `books/BOOK_2024.qmd`
@@ -36,6 +72,14 @@ editor: visual
 :::
 
 ::: {.content-card}
+[02]{.card-index}
+
+::: {.card-topline}
+[NOTE]{.card-role}
+
+[SHORT READ]{.card-kind}
+:::
+
 ### OGP メモ
 
 `notes/note01.qmd`
@@ -46,16 +90,32 @@ QuartoでOGPタグを設定する方法と、GitHubリポジトリのOGP画像�
 :::
 
 ::: {.content-card}
+[03]{.card-index}
+
+::: {.card-topline}
+[PROCESS]{.card-role}
+
+[SYSTEM]{.card-kind}
+:::
+
 ### 更新・公開フロー
 
 `.github/workflows/deploy-pages.yml`
 
 `main` にPushされたファイルを選別し、サイトに影響する変更だけを検査・レンダリング・公開する仕組みです。
 
-[運用方法を見る →](https://github.com/watanabe3tipapa/zakki6#自動検査とデプロイ){.card-link target="_blank"}
+[運用方法を見る →](https://github.com/watanabe3tipapa/zakki6#更新フローと自動デプロイ){.card-link target="_blank"}
 :::
 
 ::: {.content-card}
+[04]{.card-index}
+
+::: {.card-topline}
+[SOURCE]{.card-role}
+
+[ARCHIVE]{.card-kind}
+:::
+
 ### リポジトリのソース
 
 `watanabe3tipapa/zakki6`
@@ -67,6 +127,10 @@ QuartoでOGPタグを設定する方法と、GitHubリポジトリのOGP画像�
 
 :::
 
-## Notes
+{{< include _includes/external-feeds.html >}}
 
-> このサイトは、`main` にPushされた変更を確認したうえで、GitHub上でレンダリングして公開する構成を目指しています。コンテンツを追加したら、この一覧にもリンクと短い説明を足してください。
+::: {.editorial-note}
+[EDITORIAL NOTE]{.section-kicker}
+
+> このサイトは、`main` にPushされた変更を確認したうえで、GitHub上でレンダリングして公開します。コンテンツを追加したら、この一覧にもリンクと短い説明を足してください。
+:::

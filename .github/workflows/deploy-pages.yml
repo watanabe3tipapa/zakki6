@@ -60,7 +60,7 @@ jobs:
 
           # Site source and configuration files are eligible for deployment.
           # Generated files such as .html, .aux, .log and .tex are intentionally excluded.
-          site_change_pattern='^(_quarto\.yml|CNAME|\.nojekyll|styles\.css|[^/]+\.qmd|assets/|books/|.*/[^/]+\.(qmd|md|png|jpe?g|gif|svg|webp|css|js|json|bib|csl|ya?ml)|\.github/workflows/deploy-pages\.yml)$'
+          site_change_pattern='^(_quarto\.yml|CNAME|\.nojekyll|styles\.css|[^/]+\.qmd|assets/|books/|_includes/|scripts/build_external_feeds\.py|.*/[^/]+\.(qmd|md|png|jpe?g|gif|svg|webp|css|js|json|bib|csl|ya?ml)|\.github/workflows/deploy-pages\.yml)$'
 
           if grep -Eq "$site_change_pattern" "$changed_files"; then
             decision="deploy"
@@ -101,6 +101,19 @@ jobs:
       - name: Check source changes for whitespace errors
         if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
         run: git diff --check "${{ github.event.before }}" "${{ github.sha }}"
+
+      - name: Refresh official external feeds
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/build_external_feeds.py
+          {
+            echo "## External feed refresh"
+            echo
+            echo "- TREND: MdN Design Interactive official RSS"
+            echo "- ANTENNA: Digital Agency official RSS"
+            echo "- Status: retrieved successfully before rendering"
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Render and validate Quarto site
         shell: bash
