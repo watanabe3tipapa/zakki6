@@ -105,3 +105,44 @@
     grid-template-columns: 1fr;
   }
 }
+
+.content-card {
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.content-card:hover {
+  border-color: #9ec9ed;
+  box-shadow: 0 0.8rem 1.8rem rgb(29 54 79 / 12%);
+  transform: translateY(-3px);
+}
+
+.featured-card {
+  background: linear-gradient(145deg, #f1f8ff 0%, #ffffff 74%);
+  border-color: #9ec9ed;
+}
+
+.featured-card h3::before {
+  display: inline-block;
+  margin-right: 0.45rem;
+  color: var(--zakki-accent);
+  content: "Featured";
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-link,
+  .card-link,
+  .content-card {
+    transition: none;
+  }
+
+  .hero-link:hover,
+  .card-link:hover,
+  .content-card:hover {
+    transform: none;
+  }
+}

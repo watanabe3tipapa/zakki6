@@ -16,7 +16,7 @@ editor: visual
 ::: {.hero-banner}
 # zakki6
 
-日々のメモ、参照用のノート、そして長めの目録を置いている雑記録です。下のカードから気になるファイルを開いてください。
+日々のメモ、参照用のノート、そして長めの目録を置いている雑記録です。下のカードから、読みたいページや更新の仕組みを開いてください。
 
 [コンテンツを見る](#contents){.hero-link}
 :::
@@ -24,6 +24,16 @@ editor: visual
 ## Contents {#contents}
 
 ::: {.link-grid}
+
+::: {.content-card .featured-card}
+### 書籍目録 · 105冊
+
+`books/BOOK_2024.qmd`
+
+機械学習・データ分析を学ぶための105冊を、分野ごとのコメントとともにまとめた長めの目録です。サイト内の読みやすいページとして公開しています。
+
+[目録を読む →](books/BOOK_2024.qmd){.card-link}
+:::
 
 ::: {.content-card}
 ### OGP メモ
@@ -36,13 +46,13 @@ QuartoでOGPタグを設定する方法と、GitHubリポジトリのOGP画像�
 :::
 
 ::: {.content-card}
-### 機械学習・データ分析の書籍目録
+### 更新・公開フロー
 
-`books/BOOK_2024.md`
+`.github/workflows/deploy-pages.yml`
 
-機械学習・データ分析に関する105冊の紹介をまとめた、長めのMarkdown目録です。GitHub上の元ファイルを開きます。
+`main` にPushされたファイルを選別し、サイトに影響する変更だけを検査・レンダリング・公開する仕組みです。
 
-[ファイルを開く →](https://github.com/watanabe3tipapa/zakki6/blob/main/books/BOOK_2024.md){.card-link target="_blank"}
+[運用方法を見る →](https://github.com/watanabe3tipapa/zakki6#自動検査とデプロイ){.card-link target="_blank"}
 :::
 
 ::: {.content-card}

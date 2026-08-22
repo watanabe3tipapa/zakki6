@@ -1,8 +1,17 @@
 ---
-title: 2024年版機械学習・データ分析の必須10冊+ガチ90冊+Next5冊=105冊
-tags: 本 機械学習 データ分析 データサイエンス
-author: aokikenichi
-slide: false
+title: "2024年版 機械学習・データ分析の必須10冊＋ガチ90冊＋Next5冊"
+description: "機械学習・データ分析を学ぶための105冊をまとめた書籍目録です。"
+author: "aokikenichi"
+categories:
+  - 本
+  - 機械学習
+  - データ分析
+  - データサイエンス
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    page-layout: full
 ---
 [2023年版データ分析の100冊](https://qiita.com/aokikenichi/items/29165f719d6e5631d7d0) が好評でしたので、2024年版を作りましたよ。
 
@@ -68,7 +77,7 @@ graph TB
 
 ## 今年の特徴（2023年版からの更新）
 
-::: note info
+::: {.callout-note}
 
 - 2023年版からの更新
     - カテゴリレベル
@@ -170,15 +179,14 @@ graph TB
 |計105冊|計102冊||
 
 ## 凡例
-::: note info
+::: {.callout-note}
 - 書籍紹介での凡例
     - <font color="blue">new</font>
         - 2023年版にはない新たな本を追加。
     - <font color="red">update</font>
         - 同じ本だが改版された。
-    - :::note info
-        next break
-        - 記事時点で発売前だが本リストに入りそうな候補    
+    - **next break**
+        - 記事時点で発売前だが本リストに入りそうな候補
 - 図の凡例
 
 ```mermaid
@@ -221,7 +229,7 @@ flowchart
 |データサイエンス|[データ視覚化のデザイン](https://amzn.to/3DIS6UZ)<br/><a href="https://amzn.to/3DIS6UZ" target="_blank"><img src="https://m.media-amazon.com/images/I/81YJnPJOy6L._SY522_.jpg" width=150 /></a>|<ul><li/>著者はTableauのコンサルティングがご専門のようですが広くデータ分析での可視化にもそのまま適用できる本かと思います。データ分析に詳しくないユーザーや顧客に分析結果をどう提示するかに悩んでいる方には必読と思います。<li/>作図をしているとついつい情報を詰め込みがちになるのは誰しも経験のあるところではないでしょうか。本書にある「詰め込むな削れ」は痛いところを突かれたと思う方も多いのではないでしょうか。<li/>通常のデータ分析での可視化の本はライブラリの使い方がメインですがそもそもどういう伝え方をしたいのかで図が決まりますがそこを解説している本は少ないです。目次も、魅せ方を意識した内容です。<blockquote>第1章 データ視覚化「キモのキモ」<br/>第2章 これだけでグッとプロっぽくなるコツ<br/>第3章 目的に応じたチャートの選択<br/>第4章 事例で学ぶーダッシュボード作成過程思考キャプションー<br/>第5章 本当に組織に根付かせるために</blockquote></ul>|
 |データエンジニアリング|[データマネジメント大全](https://amzn.to/47n2LlI)<br/><a href="https://amzn.to/47n2LlI" target="_blank"><img src="https://m.media-amazon.com/images/I/51pv7zj13mL._SY445_SX342_.jpg" width=150 /></a>|<ul><li/>データエンジニアよりももうちょっと俯瞰にその組織のデータ管理のあり方のような本です。<li/>分析者の環境により、何かGUIツールがあるのかSQLをガシガシ書くような環境か、データエンジニアが別にいるのか全部自分でやるのか、によりますがデータマネジメントの基本は知っておいたほうが良いですね。<li/>下記目次のとおり、データ分析ではなくデータ活用のためにどうデータを管理するかの本です<li/>機械学習の教科書だとわかりやすいデータが用意されていて、これで分類しましょう、とかとなりますが、現実の問題では、あると言われたデータがない、言われたのとは全然違うフォーマット、担当者が独自のExcelでバラバラに持っている、ID体系が異なり突き合わせができない、A部署にあると言われたがA部署からNoと言われもらえない等々が発生します<li/>そうならないために、それを解決するためにどうするかという本です<blockquote>第1章　DXの正しい歩み方<br/>第2章　DX推進の鍵を握るデータドリブン経営<br/>第3章　データドリブン経営の成敗を左右するデータ利活用<br/>第4章　データ利活用を支えるデータマネジメントの全体像<br/>第5章　データマネジメント 戦略層<br/>第6章　データマネジメント 実行層<br/>第7章　データマネジメント 組織とヒト層</blockquote></ul>|
 
-:::note info
+::: {.callout-note}
 next break
 - [妥協しないデータ分析のための 微積分+線形代数入門](https://amzn.to/4cm8nxS) 9/21発売予定
     - <a href="https://amzn.to/4cm8nxS" target="_blank"><img src="https://m.media-amazon.com/images/I/81oesyIERkL._SY522_.jpg" width=100 /></a>
@@ -373,7 +381,7 @@ flowchart TD
 |[統計学入門 (基礎統計学)](https://amzn.to/3rUfGvf)**いわゆる「赤本」**<br/><a href="https://amzn.to/3rUfGvf" target="_blank"><img src="https://m.media-amazon.com/images/I/71WbKp9WwgL._SY522_.jpg" width=150 /></a>|<ul><li/>本書が理論理解入門の定番とされてますが、やや難しいです。ただ、分からない概念が出てきたときに本書に戻ると解説されていることが多いです。<li/>ググれば分かりますし、統計学入門なら別の本がたくさんありますが、「これが共通言語」という意味では手元に置いておいたほうがよいと思います。</ul>|
 |[プログラミングのための確率統計](https://amzn.to/3YlfQbp)<br/><a href="https://amzn.to/3YlfQbp" target="_blank"><img src="https://m.media-amazon.com/images/I/412Ufa2CI+L._SY445_SX342_.jpg" width=150 /></a>|<ul><li/>確率・統計の「意味」が分かる。題名の「プログラミング」はほぼ関係ない。簡単にだが「カルマンフィルタ」なども紹介されている。<li/>確率は面積だ！</ul>|
 
-:::note info
+::: {.callout-note}
 next break
 - [公式と例題で学ぶ統計学入門](https://amzn.to/3XjftyU) 8/17←もう出たねだがまだ読んでないすまん<br/>
 <a href="https://amzn.to/3XjftyU" target="_blank"><img src="https://a.media-amazon.com/images/I/61moodRv3ZL._SY522_.jpg" width=100 /></a>
@@ -472,7 +480,7 @@ flowchart TD
 |[因果推論の科学](https://amzn.to/3OkvtLz)<br/><a href="https://amzn.to/3OkvtLz" target="_blank"><img src="https://m.media-amazon.com/images/I/513O3cWwnsL._SY445_SX342_.jpg" width=150 /></a>|<ul><li/>なぜ因果ということを考える必要があるのかなど歴史を通じて現状までを解説した本。<li/>ただ、「因果推論の入門に良い」という書評がありますが、この本をいきなり読んで理解できるのだろうか疑問。ある程度学んだ後に戻ってきて読むと興味深く読めると思う。</ul>|
 
 
-:::note info
+::: {.callout-note}
 next break
 - [Pythonライブラリによる因果推論・因果探索[概念と実践] 因果機械学習の鍵を解く](https://amzn.to/3AAQu1k) 8/20<br/>
     - <a href="https://amzn.to/3AAQu1k" target="_blank"><img src="https://a.media-amazon.com/images/I/71hlNySLxfL._SY522_.jpg" width=100 /></a>
@@ -640,7 +648,7 @@ flowchart TD
 |[データ分析者のためのPythonデータビジュアライゼーション入門](https://amzn.to/3On9Lq7)<br/><a href="https://amzn.to/3On9Lq7" target="_blank"><img src="https://m.media-amazon.com/images/I/71kKGHsCpPL._SY522_.jpg" width=150 /></a>|<ul><li/>棒グラフ、ヒストグラム、散布図など代表的なものから地図情報、ワードクラウド、インフォグラフィックスの触りまで、Pythonによるコード例付きで分かりやすいです。Pythonでデータ可視化をするならばまず手に取りたい1冊です。</ul>|
 |[ビジネスダッシュボード 設計・実装ガイドブック 成果を生み出すデータと分析のデザイン](https://amzn.to/3rYWi0b)<br/><a href="https://amzn.to/3rYWi0b" target="_blank"><img src="https://m.media-amazon.com/images/I/81B242CzZbL._SY522_.jpg" width=150 /></a>|<ul><li/>CDP（カスタマーデータプラットフォーム）の第一人者トレジャーデータの専門家がダッシュボードについて解説した本<li/>トレジャーデータのツールに依ることなく一般論として語られているのでツール関係なくノウハウを学べます</ul>|
 
-:::note info
+::: {.callout-note}
 next break
 - [データ可視化の基本が全部わかる本 収集・変換からビジュアライゼーション・データ分析支援まで](https://amzn.to/3ApLo81) 8/28発売
 <a href="https://amzn.to/3ApLo81" target="_blank"><img src="https://m.media-amazon.com/images/I/71XZRq14T9L._SY522_.jpg" width=100 /></a>
