@@ -1,0 +1,107 @@
+:root {
+  --zakki-ink: #182230;
+  --zakki-muted: #5d6b7b;
+  --zakki-line: #dbe4ee;
+  --zakki-paper: #f7f9fc;
+  --zakki-accent: #0f6cbd;
+  --zakki-accent-dark: #084f90;
+}
+
+.hero-banner {
+  margin: 1.75rem 0 2.5rem;
+  padding: clamp(1.75rem, 4vw, 3.5rem);
+  color: #fff;
+  background: linear-gradient(135deg, #123a5d 0%, #0f6cbd 55%, #3d8dcc 100%);
+  border-radius: 1.25rem;
+  box-shadow: 0 1rem 2.5rem rgb(15 54 91 / 18%);
+}
+
+.hero-banner h1 {
+  margin-top: 0;
+  font-weight: 750;
+}
+
+.hero-banner p {
+  max-width: 44rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+.hero-link,
+.card-link {
+  display: inline-block;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.hero-link {
+  padding: 0.65rem 1rem;
+  color: var(--zakki-ink);
+  background: #fff;
+  border-radius: 0.55rem;
+}
+
+.hero-link:hover {
+  color: var(--zakki-ink);
+  transform: translateY(-2px);
+}
+
+.link-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.1rem;
+  margin: 1.25rem 0 2.5rem;
+}
+
+.content-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 15rem;
+  padding: 1.35rem;
+  background: #fff;
+  border: 1px solid var(--zakki-line);
+  border-radius: 0.9rem;
+  box-shadow: 0 0.45rem 1.2rem rgb(29 54 79 / 7%);
+}
+
+.content-card h3 {
+  margin-top: 0;
+  color: var(--zakki-ink);
+}
+
+.content-card p,
+.content-card > :not(h3):not(.card-link) {
+  color: var(--zakki-muted);
+  line-height: 1.7;
+}
+
+.content-card code {
+  width: fit-content;
+  padding: 0.2rem 0.4rem;
+  color: #30506c;
+  background: var(--zakki-paper);
+  border-radius: 0.3rem;
+}
+
+.card-link {
+  margin-top: auto;
+  padding-top: 0.8rem;
+  color: var(--zakki-accent);
+}
+
+.card-link:hover {
+  color: var(--zakki-accent-dark);
+  transform: translateX(2px);
+}
+
+@media (max-width: 576px) {
+  .hero-banner {
+    border-radius: 0.85rem;
+  }
+
+  .link-grid {
+    grid-template-columns: 1fr;
+  }
+}
